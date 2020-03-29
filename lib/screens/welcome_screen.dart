@@ -6,7 +6,7 @@ import 'login_screen.dart';
 import 'registration_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  static String id = 'welcome_screen';
+  static const String id = 'welcome_screen';
 
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
@@ -14,33 +14,26 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen>
     with SingleTickerProviderStateMixin {
-  AnimationController animationController;
+  AnimationController controller;
   Animation animation;
 
   @override
   void initState() {
     super.initState();
 
-    animationController = AnimationController(
-      duration: Duration(seconds: 1),
-      vsync: this,
-    );
-
-    animation = ColorTween(
-      begin: Colors.blueGrey,
-      end: Colors.white,
-    ).animate(animationController);
-
-    animationController.forward();
-
-    animationController.addListener(() {
+    controller =
+        AnimationController(duration: Duration(seconds: 1), vsync: this);
+    animation = ColorTween(begin: Colors.blueGrey, end: Colors.white)
+        .animate(controller);
+    controller.forward();
+    controller.addListener(() {
       setState(() {});
     });
   }
 
   @override
   void dispose() {
-    animationController.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -76,15 +69,15 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               height: 48.0,
             ),
             RoundedButton(
-              color: Colors.lightBlueAccent,
               title: 'Log In',
+              color: Colors.lightBlueAccent,
               onPressed: () {
                 Navigator.pushNamed(context, LoginScreen.id);
               },
             ),
             RoundedButton(
-              color: Colors.blueAccent,
               title: 'Register',
+              color: Colors.blueAccent,
               onPressed: () {
                 Navigator.pushNamed(context, RegistrationScreen.id);
               },
